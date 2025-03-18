@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+stack<int> h;
+int zhuanhua(string s){
+	int sum=0;
+	for(int i=0;i<s.size();i++){
+		sum= sum *10 + s[i]-'0';
+	}
+	return sum;
+}
+void sol(){
+	string s,l;
+	char a;
+	while((a = getchar()) && a!='@'){
+		s+=a;
+	}
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='-'){
+			int b =h.top();h.pop();
+			int a =h.top();h.pop();
+			h.push(a-b);
+		}else if(s[i]=='+'){
+			int b =h.top();h.pop();
+			int a =h.top();h.pop();
+			h.push(a+b);
+		}else if(s[i]=='*'){
+			int b =h.top();h.pop();
+			int a =h.top();h.pop();
+			h.push(a*b);
+		}else if(s[i]=='/'){
+			int b =h.top();h.pop();
+			int a =h.top();h.pop();
+			h.push(a/b);
+		}else{
+			string l;
+			while(s[i]>='0' && s[i]<='9'){
+				l+=s[i++];
+			}
+			h.push(zhuanhua(l));
+		}
+	}
+	cout<<h.top();
+	return;
+}
+signed main(){
+	ios::sync_with_stdio(0),cin.tie(0),cout.tie(0);
+	int _=1;
+//	cin>>_;
+	while(_--) sol();
+	return 0;
+}
+
